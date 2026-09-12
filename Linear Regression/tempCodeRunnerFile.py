@@ -1,0 +1,1 @@
+print("MSE :", model.MSE())
