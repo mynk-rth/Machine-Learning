@@ -14,17 +14,15 @@ class Bi_LinearRegression:
         mean_X = np.mean(self.__x)
         mean_Y = np.mean(self.__y)
 
-        Bill_deviation = self.__x - mean_X
+        Xi_x = self.__x - mean_X
 
-        Tip_deviation = self.__y - mean_Y
+        Yi_y = self.__y - mean_Y
 
-        Deviation_Products = Bill_deviation * Tip_deviation
-
-        Bill_deviation_sqr = Bill_deviation**2
+        Xi_x_sqr = Xi_x**2
 
         #                                                   ---------------- Slope (b1) --------------
 
-        self.slope = sum(Bill_deviation * Tip_deviation) / sum(Bill_deviation_sqr)
+        self.slope = sum(Xi_x * Yi_y) / sum(Xi_x_sqr)
 
         #                                                   ---------------- Y-Intercept (b0) --------------
 
