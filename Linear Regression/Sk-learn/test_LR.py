@@ -1,4 +1,5 @@
 from sklearn.linear_model import LinearRegression
+from sklearn.metrics import mean_squared_error
 import numpy as np
 
 amount = np.array([34,108,64,88,99,51])
@@ -13,6 +14,11 @@ model.fit(amount,tip)
 print(model.intercept_)               # intercept
 print(model.coef_)                    # slope
 
-k = model.predict([[200],[180]])
-print(k)
+# k = model.predict([[200],[180]])        # predict
+# print(k)
 
+y_pred=model.predict(amount)
+print(y_pred)
+
+mse = mean_squared_error(tip,y_pred)
+print(mse)
