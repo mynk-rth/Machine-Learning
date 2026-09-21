@@ -1,5 +1,7 @@
 import pandas as pd
+import numpy as np
 from Multivariate_class import Multivariate_LR
+
 
 #---------------------------------------------- Data Fetching -------------------------------------------
 data = pd.read_csv(f"M:/DISK M/Python~SS/Machine Learning/Linear Regression/Sk-learn/mumbai_housing.csv")
@@ -30,12 +32,31 @@ new_house = pd.DataFrame({
     "property_type": ["Apartment"],
     "furnished": ["Furnished"]
 })
-
-print("Prediction : ",Model.predict(new_house))
-
-print("MSE : ",Model.MSE(x_test,y_test))
+Model.encoder(new_house)                  # encode kar diya categorical columns ko
+new_house = new_house[Data_X.columns]                         # columns ko sahi order me fix kiya just like A_cap
 
 
+print("Prediction of New House: ",Model.predict(new_house)[0])
+
+
+# ---------------------------------------------- MSE -------------------------------------------
+
+y_pred = Model.predict(x_test)
+# print("Prediction of x_test : \n",y_pred.round(2))
+print("MSE : ",Model.MSE(y_test,y_pred))
+
+
+
+# SHOW ACTUAL VS PREDICTED
+
+result = pd.DataFrame({
+    "Actual": y_test,
+    "Predicted": y_pred.round(2)
+})
+
+print("\nActual vs Predicted:")
+
+print(result.tail(10))
 
 
 

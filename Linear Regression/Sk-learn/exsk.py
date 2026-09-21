@@ -1,4 +1,4 @@
-import pandas as pd
+import pandas as pd                                                         # LECTURE -> 88,89
 
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import OneHotEncoder
@@ -164,6 +164,9 @@ X_test_final = pd.concat(
     axis=1
 )
 
+# print(X_train_final)
+# print(X_test_final)
+
 
 print("\nFinal Training Shape:")
 print(X_train_final.shape)
@@ -199,6 +202,7 @@ y_pred = model.predict(
     X_test_final
 )
 
+print(y_pred)
 
 
 # MODEL EVALUATION
@@ -305,6 +309,7 @@ new_house_final = pd.concat(
 
 #PREDICT PRICE
 
+# print(new_house_final)
 
 prediction = model.predict(
     new_house_final

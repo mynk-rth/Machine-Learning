@@ -20,8 +20,11 @@ class Multivariate_LR:
 
 
   # ---------------------------------------------- Encoder -------------------------------------------
-  def encoder(self,data, col_list):
-    global mappings
+  def encoder(self,data, col_list=None):
+
+    if col_list is None:
+      col_list = self.cat_cols
+
     # Mapping sirf first time banegi
     if not self.mappings:
         for col in col_list:
@@ -40,13 +43,13 @@ class Multivariate_LR:
   def superencoder(self,data,target):
     target_column = target
     num_cols = data.select_dtypes(include=['int', 'float']).columns.drop(target_column, errors='ignore')
-    cat_cols = data.select_dtypes(include='str').columns.drop(target_column, errors='ignore')
+    self.cat_cols = data.select_dtypes(include='str').columns.drop(target_column, errors='ignore')
     
-    data = data.dropna(subset=num_cols.tolist() + cat_cols.tolist() + [target_column])
+    data = data.dropna(subset=num_cols.tolist() + self.cat_cols.tolist() + [target_column])
 
-    self.encoder(data,cat_cols)
+    self.encoder(data)
 
-    self.Data_X = data[num_cols.tolist() + cat_cols.tolist()]
+    self.Data_X = data[num_cols.tolist() + self.cat_cols.tolist()]
     Data_y = data[target_column]
 
     return self.Data_X,Data_y
@@ -62,29 +65,17 @@ class Multivariate_LR:
     print("\n\t\tModel Training Completed\n")
 
   def predict(self,new_input):
+    new_input = new_input.copy()
+    new_input.insert(0,"intercept",1)[Data_X.columns]
 
-    categorical_columns=self.find_cat_cols(new_input)            # new_house ke categorical columns find kiye 
-    self.encoder(new_input,categorical_columns)                  # encode kar diya categorical columns ko
-    new_input = new_input[self.Data_X.columns]                         # columns ko sahi order me fix kiya just like A_cap
-    X_new = np.column_stack([
-        np.ones(len(new_input)),                                  # matric create kiya 
-        new_input
-        ])
-
-    prediction = self.A_cap[0]
-    for i in range(1, len(self.A_cap)):
-        prediction = (prediction + self.A_cap[i] * X_new[0][i])
+    prediction = new_input.dot(self.A_cap)
     return prediction 
 
-  def MSE(self,x_test,y_test):
-    intercept = self.A_cap[0]
-    y_pred = pd.Series(intercept,index=x_test.index)
-
-    for i, column in enumerate(x_test.columns):
-        y_pred = (y_pred + self.A_cap[i + 1] * x_test[column])
-
+  def MSE(self,y_test,y_pred):
     diff = y_test - y_pred
     sq = diff ** 2
     mse = sq.mean()                                                                                         #sq.sum()/n        where n-> len(x_test)
     return mse 
+  
+
 

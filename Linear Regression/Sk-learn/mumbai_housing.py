@@ -19,15 +19,6 @@ def find_cat_cols(data):
 mappings = {}
 
 # ---------------------------------------------- Encoder -------------------------------------------
-# def encoder(data,col_list):
-#     for col in col_list:
-#         T = sorted(data[col].unique())
-#         mapping = {}
-#         for i,V in enumerate(T):
-#             mapping[V]=i
-#         data[col]=data[col].map(mapping)
-
-
 def encoder(data, col_list):
     global mappings
     # Mapping sirf first time banegi
@@ -186,23 +177,27 @@ X_new = np.column_stack([
 
 
 # ---------------------------------------------- Prediction Formula -------------------------------------------
-prediction = A_cap[0]
+# prediction = A_cap[0]
 
-for i in range(1, len(A_cap)):
-    prediction = (prediction + A_cap[i] * X_new[0][i])                                            # or A_cap[i] * new_house.iloc[0][i-1]
+# for i in range(1, len(A_cap)):
+#     prediction = (prediction + A_cap[i] * X_new[0][i])                                            # or A_cap[i] * new_house.iloc[0][i-1]
 
+# 2nd method 
+prediction = X_new @ A_cap
 print("\nPredicted Price :", prediction)
 
 
 # # ---------------------------------------------- MSE -------------------------------------------
-intercept = A_cap[0]
+# intercept = A_cap[0]
+# y_pred = pd.Series(intercept,index=x_test.index)
+# for i, column in enumerate(x_test.columns):
+#     y_pred = (y_pred + A_cap[i + 1] * x_test[column])
 
-y_pred = pd.Series(intercept,index=x_test.index)
+# 2nd method
+X_test = x_test.copy()
+X_test.insert(0, "intercept", 1)
 
-
-for i, column in enumerate(x_test.columns):
-    y_pred = (y_pred + A_cap[i + 1] * x_test[column])
-
+y_pred = X_test @ A_cap
 diff = y_test - y_pred
 sq = diff ** 2
 mse = sq.mean()                                                                                         #sq.sum()/n        where n-> len(x_test)
