@@ -48,7 +48,7 @@ encoder(data,columns)
 # print(data['city'])
 
 #-------------------------------------------------------  Do not use this function  ----------------------------------
-# data_x = pd.get_dummies(dtype=int,data=data_x,columns=columns,drop_first=True)        # error --> Do not use this function 
-# print(data_x)
-# print(data_x.columns)
+data_x = pd.get_dummies(dtype=int,data=data_x,columns=columns,drop_first=True)        # error --> Do not use this function 
+print(data_x)
+print(data_x.columns)
 

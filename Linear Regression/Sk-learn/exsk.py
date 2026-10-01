@@ -203,7 +203,7 @@ y_pred = model.predict(
 )
 
 print(y_pred)
-
+print(type(y_pred))
 
 # MODEL EVALUATION
 

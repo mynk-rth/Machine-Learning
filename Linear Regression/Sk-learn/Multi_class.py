@@ -2,7 +2,7 @@ import pandas as pd
 import numpy as np
 
 
-class Multivariate_LR:
+class Multi_LR:
   def __init__(self):
         self.mappings = {}
 
@@ -13,31 +13,13 @@ class Multivariate_LR:
     return [data_x.loc[0:train_size],data_x.loc[train_size:L],data_y.loc[0:train_size],data_y.loc[train_size:L]]
 
 
-  # ---------------------------------------------- Find Categorical Columns -------------------------------------------
-  def find_cat_cols(self,data):
-    cat_cols = data.select_dtypes(include='str').columns
-    return cat_cols.tolist()
-
-
   # ---------------------------------------------- Encoder -------------------------------------------
-  def encoder(self,data, col_list=None):
 
+  def onehot_encoder(self,data, col_list=None):
     if col_list is None:
-      col_list = self.cat_cols
-
-    # Mapping sirf first time banegi
-    if not self.mappings:
-        for col in col_list:
-            T = sorted(data[col].unique())
-            mapping = {}
-            for i, V in enumerate(T):
-                mapping[V] = i
-            self.mappings[col] = mapping
-
-    # Old mapping apply hogi
-    for col in col_list:
-        data[col] = data[col].map(self.mappings[col])
-
+      col_list = self.cat_cols.tolist()
+    data = pd.get_dummies(dtype=int,data=data,columns=col_list)
+    return data
 
   # ---------------------------------------------- Super Encoder -------------------------------------------
   def superencoder(self,data,target):
@@ -47,29 +29,37 @@ class Multivariate_LR:
     
     data = data.dropna(subset=num_cols.tolist() + self.cat_cols.tolist() + [target_column])
 
-    self.encoder(data)
 
-    self.Data_X = data[num_cols.tolist() + self.cat_cols.tolist()]
+    Data_X = data[num_cols.tolist() + self.cat_cols.tolist()]
     Data_y = data[target_column]
 
-    return self.Data_X,Data_y
+    Data_X = self.onehot_encoder(Data_X)
+
+    return Data_X,Data_y
 
 
   def fit(self,x_train,y_train):
+    self.x_train = x_train
     X = x_train.copy()
     X.insert(0,"intercept",1)
     X_transpose = X.T  
-    XTX_inv = np.linalg.inv(X_transpose @ X)
+    XTX_inv = np.linalg.pinv(X_transpose @ X)
     self.A_cap = (XTX_inv.dot(X_transpose)).dot(y_train)
 
     print("\n\t\tModel Training Completed\n")
 
   def predict(self,new_input):
     new_input = new_input.copy()
-    new_input.insert(0,"intercept",1)[Data_X.columns]
+    
+    # Training ke same columns/order mein lao
+    new_input = new_input.reindex(
+        columns=self.x_train.columns,
+        fill_value=0
+    )
 
+    new_input.insert(0,"intercept",1)
     prediction = new_input.dot(self.A_cap)
-    return prediction 
+    return prediction.to_numpy()
 
   def MSE(self,y_test,y_pred):
     diff = y_test - y_pred
@@ -77,5 +67,4 @@ class Multivariate_LR:
     mse = sq.mean()                                                                                         #sq.sum()/n        where n-> len(x_test)
     return mse 
   
-
 

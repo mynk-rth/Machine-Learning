@@ -32,9 +32,7 @@ new_house = pd.DataFrame({
     "property_type": ["Apartment"],
     "furnished": ["Furnished"]
 })
-Model.encoder(new_house)                  # encode kar diya categorical columns ko
-new_house = new_house[Data_X.columns]                         # columns ko sahi order me fix kiya just like A_cap
-
+Model.encoder(new_house)                                      # encode kar diya categorical columns ko
 
 print("Prediction of New House: ",Model.predict(new_house)[0])
 
@@ -42,7 +40,8 @@ print("Prediction of New House: ",Model.predict(new_house)[0])
 # ---------------------------------------------- MSE -------------------------------------------
 
 y_pred = Model.predict(x_test)
-# print("Prediction of x_test : \n",y_pred.round(2))
+print("Prediction of x_test : \n",y_pred)
+print(type(y_pred))
 print("MSE : ",Model.MSE(y_test,y_pred))
 
 
@@ -56,7 +55,7 @@ result = pd.DataFrame({
 
 print("\nActual vs Predicted:")
 
-print(result.tail(10))
+print(result.head(10))
 
 
 
