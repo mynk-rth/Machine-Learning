@@ -9,7 +9,7 @@ from sklearn.metrics import mean_absolute_error, mean_squared_error, r2_score
 
 file_path = "F:/data/mumbai.csv"
 
-df = pd.read_csv(f"M:/DISK M/Python~SS/Machine Learning/Linear Regression/Sk-learn/mumbai_housing.csv")
+df = pd.read_csv(f"M:/DISK M/Python~SS/Machine Learning/Linear Regression/Datasets/mumbai_housing.csv")
 
 
 

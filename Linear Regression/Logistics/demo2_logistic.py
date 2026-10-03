@@ -4,7 +4,7 @@ from Logistic_class import Logistic_Regression
 
 
 #---------------------------------------------- Data Fetching -------------------------------------------
-data = pd.read_csv(f"M:/DISK M/Python~SS/Machine Learning/Linear Regression/Sk-learn/heart_failure_clinical_records_dataset.csv")
+data = pd.read_csv(f"M:/DISK M/Python~SS/Machine Learning/Linear Regression/Datasets/heart_failure_clinical_records_dataset.csv")
 # print(data)
 # print(data.columns)
 
@@ -12,7 +12,7 @@ data = pd.read_csv(f"M:/DISK M/Python~SS/Machine Learning/Linear Regression/Sk-l
 #---------------------------------------------- Model -------------------------------------------
 Model = Logistic_Regression()
 
-Data_X, Data_Y = Model.superencoder(data,"DEATH_EVENT")                            # Data , target_column(data_Y column)
+Data_X, Data_Y = Model.datapreprocessing(data,"DEATH_EVENT")                            # Data , target_column(data_Y column)
 
 x_train,x_test,y_train,y_test = Model.test_train_splits(Data_X,Data_Y,1)  
 

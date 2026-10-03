@@ -4,31 +4,32 @@ from Multivariate_class import Multivariate_LR
 
 
 #---------------------------------------------- Data Fetching -------------------------------------------
-data = pd.read_csv(f"M:/DISK M/Python~SS/Machine Learning/Linear Regression/Sk-learn/mumbai_housing.csv")
+data = pd.read_csv(f"M:/DISK M/Python~SS/Machine Learning/Linear Regression/Datasets/mumbai_housing.csv")
 # print(data)
 # print(data.columns)
 
 #---------------------------------------------- Remove Unnecssary columns -------------------------------------------
-data = data.drop(['title','price_per_sqft','city','latitude','longitude'],axis=1)
+data = data.drop(['title','price_per_sqft','latitude','longitude'],axis=1)
 
 
 #---------------------------------------------- Model -------------------------------------------
 Model = Multivariate_LR()
 
-Data_X, Data_Y = Model.superencoder(data,"price")                            # Data , target_column(data_Y column)
+Data_X, Data_Y = Model.datapreprocessing(data,"price")                            # Data , target_column(data_Y column)
 
 x_train,x_test,y_train,y_test = Model.test_train_splits(Data_X,Data_Y,0.8)  
 
 Model.fit(x_train,y_train)
 
 new_house = pd.DataFrame({
-    "area": [1200],
-    "bedroom_num": [2],
-    "bathroom_num": [2],
-    "balcony_num": [1],
-    "age": [5],
-    "total_floors": [10],
-    "locality": ["Kalyan"],
+    "area": [200],
+    "bedroom_num": [3],
+    "bathroom_num": [3],
+    "balcony_num": [2],
+    "age": [2],
+    "total_floors": [1],
+    "city": ["Mumbai"],
+    "locality": ["Andheri West"],
     "property_type": ["Apartment"],
     "furnished": ["Furnished"]
 })

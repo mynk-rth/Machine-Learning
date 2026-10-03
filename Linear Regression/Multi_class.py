@@ -22,7 +22,7 @@ class Multi_LR:
     return data
 
   # ---------------------------------------------- Super Encoder -------------------------------------------
-  def superencoder(self,data,target):
+  def datapreprocessing(self,data,target):
     target_column = target
     num_cols = data.select_dtypes(include=['int', 'float']).columns.drop(target_column, errors='ignore')
     self.cat_cols = data.select_dtypes(include='str').columns.drop(target_column, errors='ignore')

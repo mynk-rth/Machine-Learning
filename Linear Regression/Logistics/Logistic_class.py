@@ -40,7 +40,7 @@ class Logistic_Regression:
 
 
   # ---------------------------------------------- Super Encoder -------------------------------------------
-  def superencoder(self,data,target):
+  def datapreprocessing(self,data,target):
     target_column = target
     num_cols = data.select_dtypes(include=['int', 'float']).columns.drop(target_column, errors='ignore')
     self.cat_cols = data.select_dtypes(include='str').columns.drop(target_column, errors='ignore')
@@ -121,7 +121,13 @@ class Logistic_Regression:
 
 
 
-
+ # # ---------------------------------------------
+    # # Convert input into DataFrame  --> encoder
+    # # ---------------------------------------------
+    # if isinstance(mydata, dict):
+    #     data = pd.DataFrame([mydata])
+    # else:
+    #     data = mydata.copy()
 
 
 

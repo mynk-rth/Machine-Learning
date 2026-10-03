@@ -36,7 +36,7 @@ def encoder(data, col_list):
 
 
 # ---------------------------------------------- Super Encoder -------------------------------------------
-def superencoder(data,target):
+def datapreprocessing(data,target):
     target_column = target
     num_cols = data.select_dtypes(include=['int', 'float']).columns.drop(target_column, errors='ignore')
     cat_cols = data.select_dtypes(include='str').columns.drop(target_column, errors='ignore')
@@ -52,7 +52,7 @@ def superencoder(data,target):
 
 
 #---------------------------------------------- Data Fetching -------------------------------------------
-data = pd.read_csv(f"M:/DISK M/Python~SS/Machine Learning/Linear Regression/Sk-learn/mumbai_housing.csv")
+data = pd.read_csv(f"M:/DISK M/Python~SS/Machine Learning/Linear Regression/Datasets/mumbai_housing.csv")
 # print(data)
 # print(data.columns)
 
@@ -92,7 +92,7 @@ data = data.drop(['title','price_per_sqft','city','latitude','longitude'],axis=1
 
 
 #---------------------------------------------- Single Function --> Def superencoder -------------------------------------------
-Data_X, Data_Y = superencoder(data,"price")
+Data_X, Data_Y = datapreprocessing(data,"price")
 # print(Data_X)
 # print(Data_Y)
 

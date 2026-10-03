@@ -34,7 +34,7 @@ class Multivariate_LR:
 
 
   # ---------------------------------------------- Super Encoder -------------------------------------------
-  def superencoder(self,data,target):
+  def datapreprocessing(self,data,target):
     target_column = target
     num_cols = data.select_dtypes(include=['int', 'float']).columns.drop(target_column, errors='ignore')
     self.cat_cols = data.select_dtypes(include='str').columns.drop(target_column, errors='ignore')
@@ -53,7 +53,7 @@ class Multivariate_LR:
     X = x_train.copy()
     X.insert(0,"intercept",1)
     X_transpose = X.T  
-    XTX_inv = np.linalg.inv(X_transpose @ X)
+    XTX_inv = np.linalg.pinv(X_transpose @ X)
     self.A_cap = (XTX_inv.dot(X_transpose)).dot(y_train)
 
     print("\n\t\tModel Training Completed\n")
@@ -71,3 +71,33 @@ class Multivariate_LR:
     return mse 
   
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    # # ---------------------------------------------
+    # # Convert input into DataFrame
+    # # ---------------------------------------------
+    # if isinstance(mydata, dict):
+    #     data = pd.DataFrame([mydata])
+    # else:
+    #     data = mydata.copy()

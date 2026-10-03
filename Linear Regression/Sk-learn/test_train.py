@@ -17,7 +17,7 @@ def encoder(data,col_list):
         data[col]=data[col].map(mapping)
 
 
-data = pd.read_csv(f"M:/DISK M/Python~SS/Machine Learning/Linear Regression/Sk-learn/mumbai_housing.csv")
+data = pd.read_csv(f"M:/DISK M/Python~SS/Machine Learning/Linear Regression/Datasets/mumbai_housing.csv")
 # print(data)
 
 
