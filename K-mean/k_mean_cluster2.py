@@ -9,6 +9,7 @@ class Kmean:
         self.clusters=None
 
     def fit(self,data,centroid):
+        
         #Initial centroids
         self.centroid=centroid
         while(True):
@@ -71,7 +72,9 @@ df=pd.DataFrame({'Student':['A','B','C','D','E','F'],
 data=df.iloc[:,1:].to_numpy()
 print(df)
 print(data)
-#MODEL
+
+
+# MODEL
 centroid=ast.literal_eval(input("Enter the initial centroid: "))
 model=Kmean(len(centroid))
 model.fit(data,centroid)

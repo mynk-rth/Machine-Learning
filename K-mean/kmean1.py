@@ -54,6 +54,18 @@ class Kmean:
         cluster_index = distance.index(min(distance))
         print(value,"Belongs to Cluster",self.clusters[cluster_index])
         return self.clusters[cluster_index]
+
+
+    def showPlot(self):
+        import matplotlib.pyplot as plt 
+        color=['r','b']
+        for i in range(self.k):
+            plt.scatter(self.clusters[i],[i+1]*len(self.clusters[i]),c=color[i])
+
+        plt.scatter(self.centroid,range(1,self.k+1),c='g',s=100,marker='*')
+        plt.yticks(range(1,self.k+1))
+
+        plt.show()
   
 
 
@@ -69,8 +81,29 @@ model.show()
 value = 30
 model.predict(value)
 
+model.showPlot()
 
 
+
+
+
+
+# -------------------------------------------------
+
+
+# import matplotlib.pyplot as plt
+
+# plt.scatter(model.clusters[0], [1] * len(model.clusters[0]), c='r', label='Cluster 1')
+# plt.scatter(model.clusters[1], [2] * len(model.clusters[1]), c='b', label='Cluster 2')
+
+# plt.scatter(model.centroid, [1, 2], c='g', s=100, marker='*', label='Centroids')
+
+# plt.xlabel("Data Values")
+# plt.ylabel("Cluster")
+# plt.yticks([1, 2], ["Cluster 1", "Cluster 2"])
+# plt.legend()
+# plt.grid(True)
+# plt.show()
 
 
 
