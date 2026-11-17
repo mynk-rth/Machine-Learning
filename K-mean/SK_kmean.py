@@ -34,3 +34,16 @@ plt.xlabel("X")
 plt.ylabel("Y")
 plt.title("K-means Clustering")
 plt.show()
+
+
+
+
+
+
+# Prediction
+new_data = [[3, 6]]
+
+prediction = model.predict(new_data)
+
+print("\nNew Data:", new_data)
+print("Predicted Cluster:", prediction[0])
