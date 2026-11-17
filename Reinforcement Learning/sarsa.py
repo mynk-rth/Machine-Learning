@@ -81,7 +81,7 @@ for step, action in enumerate(actions):
         reward + gamma * future_q - old_q
     )
 
-    Q[state][action] = new_q
+    Q[state][action] = new_q          # update value in Q-table
 
     print("Reward:", reward)
     print("Old Q-value:", old_q)
