@@ -5,7 +5,8 @@ from sklearn.compose import ColumnTransformer
 from sklearn.linear_model import LinearRegression
 from sklearn.metrics import mean_absolute_error, mean_squared_error, r2_score
 
-df = pd.read_csv(f"M:/DISK M/Python~SS/Machine Learning/Linear Regression/Datasets/mumbai_housing.csv")
+
+df = pd.read_csv(f"M:/DISK M/Python Data Science AI & ML/Machine Learning/Linear Regression/Datasets/mumbai_housing.csv")
 
 num = ["area", "bedroom_num", "bathroom_num", "balcony_num", "age", "total_floors"]
 cat = ["locality", "property_type", "furnished"]
@@ -40,13 +41,37 @@ y_pred = model.predict(
     X_test
 )
 
+mae = mean_absolute_error(
+    y_test,
+    y_pred
+)
+
 mse = mean_squared_error(
     y_test,
     y_pred
 )
 
+r2 = r2_score(
+    y_test,
+    y_pred
+)
+
 print("MODEL PERFORMANCE")
-print("MSE :", mse)
+print("MAE       :", mae)
+print("MSE       :", mse)
+print("R2 Score  :", r2)
+print(f"R2 (%)    : {r2 * 100:.2f}%")
+
+# SHOW ACTUAL VS PREDICTED
+result = pd.DataFrame({
+    "Actual": y_test,
+    "Predicted": y_pred
+})
+
+print("\nActual vs Predicted:")
+
+print(result.head(20))
+
 
 new_house = pd.DataFrame({
     "area": [1200],

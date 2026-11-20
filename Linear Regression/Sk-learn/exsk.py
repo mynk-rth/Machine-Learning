@@ -9,7 +9,7 @@ from sklearn.metrics import mean_absolute_error, mean_squared_error, r2_score
 
 file_path = "F:/data/mumbai.csv"
 
-df = pd.read_csv(f"M:/DISK M/Python~SS/Machine Learning/Linear Regression/Datasets/mumbai_housing.csv")
+df = pd.read_csv(f"M:/DISK M/Python Data Science AI & ML/Machine Learning/Linear Regression/Datasets/mumbai_housing.csv")
 
 
 
@@ -218,6 +218,11 @@ mse = mean_squared_error(
     y_pred
 )
 
+r2 = r2_score(
+    y_test,
+    y_pred
+)
+
 
 
 
@@ -225,9 +230,23 @@ mse = mean_squared_error(
 print("MODEL PERFORMANCE")
 
 
-print("MAE  :", mae)
+print("MAE       :", mae)
 
-print("MSE  :", mse)
+print("MSE       :", mse)
+
+print("R2 Score  :", r2)
+print(f"R2 (%)    : {r2 * 100:.2f}%")
+
+# accuracy_score note:
+# accuracy_score is designed for classification (discrete categories/labels).
+# In continuous regression tasks (like house prices), comparing continuous predictions
+# with continuous actual values throws a ValueError.
+try:
+    acc = accuracy_score(y_test, y_pred)
+    print("Accuracy Score :", acc)
+except ValueError as e:
+    print("\nAccuracy Score : Not directly applicable to continuous regression")
+    print(f"Reason: {e}")
 
 
 
