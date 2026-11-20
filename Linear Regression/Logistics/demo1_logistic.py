@@ -1,10 +1,11 @@
 import pandas as pd
 import numpy as np
 from Logistic_class import Logistic_Regression
+from sklearn.metrics import accuracy_score, confusion_matrix, classification_report
 
 
 #---------------------------------------------- Data Fetching -------------------------------------------
-data = pd.read_csv(f"M:/DISK M/Python~SS/Machine Learning/Linear Regression/Datasets/creditScore.csv")
+data = pd.read_csv(f"M:/DISK M/Python Data Science AI & ML/Machine Learning/Linear Regression/Datasets/creditScore.csv")
 # print(data)
 # print(data.columns)
 
@@ -44,6 +45,19 @@ result = pd.DataFrame({
 })
 print("\nActual vs Predicted:")
 print(result)
+
+
+# ---------------------------------------------- Model Performance (sklearn) -------------------------------------------
+accuracy = accuracy_score(y_train, y_pred)
+conf_matrix = confusion_matrix(y_train, y_pred)
+class_report = classification_report(y_train, y_pred, zero_division=0)
+
+print("\n---------------- Model Performance ----------------")
+print(f"Accuracy Score : {accuracy * 100:.2f}%")
+print("\nConfusion Matrix:")
+print(conf_matrix)
+print("\nClassification Report:")
+print(class_report)
 
 
 
